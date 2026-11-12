@@ -1,6 +1,6 @@
 import pytest
 
-from exemplo import (calcular_total_compra, calcular_troco, converter_horas_em_minutos, criar_saudacao, contar_caracteres, tem_item_na_lista, pode_entrar_no_evento, calcular_media, converter_km_em_metros, calcular_gorjeta, calcular_idade_apos_anos, calcular_tempo_viagem, converter_celsius_fahreinheit, adicionar_item, aplicar_pagamento, calcular_total)
+from exemplo import (calcular_total_compra, calcular_troco, converter_horas_em_minutos, criar_saudacao, contar_caracteres, tem_item_na_lista, pode_entrar_no_evento, calcular_media, converter_km_em_metros, calcular_gorjeta, calcular_idade_apos_anos, calcular_tempo_viagem, converter_celsius_fahreinheit, adicionar_item, aplicar_pagamento, calcular_total, filtrar_por_preco)
 
 # Teste da função para calcular valor total da compra
 def test_calcular_total_compra():
@@ -118,5 +118,20 @@ def saldo_inicial():
 
 # FUNÇÕES DE TESTES COM FIXTURES
 # TESTE PARA ADICIONAR ITEM NA LISTA
-def test_adicionar_item_na_lista(lista_compra):
-    
+def test_adicionar_item_na_lista(lista_compras):
+    adicionar_item(lista_compras, "Açucar", 5.50)
+
+    assert len(lista_compras)
+    assert lista_compras[-1]["nome"] == "Açucar"
+
+#FUNÇÃO DE TESTE PARA CALCULAR VALOR TOTAL DAS COMPRAS
+def test_calcular_valor_total_das_compras(lista_compras):
+    total = calcular_total(lista_compras)
+    assert total == 55.50
+
+# FUNÇÃO DE TESTE PARA FILTRAR PRODUTOS POR PREÇO
+def test_filtrar_produtos_por_preco(lista_compras):
+    resultado = filtrar_por_preco(lista_compras, 10)
+
+    assert len(resultado) == 2
+    assert all(item['preco'] <= 10 for item in resultado)

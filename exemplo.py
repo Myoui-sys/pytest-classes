@@ -95,3 +95,10 @@ def aplicar_pagamento(saldo, valor):
     if valor > saldo:
         raise ValueError('Saldo insuficiente')
     return saldo - valor
+
+#FUNÇÃO PARA FILTRAR UM ITEM POR PREÇO
+def filtrar_por_preco(lista, limite):
+    return [
+        item for item in lista
+        if item['preco'] <= limite
+    ]
