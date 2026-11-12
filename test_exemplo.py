@@ -135,3 +135,20 @@ def test_filtrar_produtos_por_preco(lista_compras):
 
     assert len(resultado) == 2
     assert all(item['preco'] <= 10 for item in resultado)
+
+# FUNÇÃO PARA TESTAR A ATUALIZAÇÃO DO SALDO
+def test_pagamento_deve_atualizar_saldo(saldo_inicial):
+    novo_saldo = aplicar_pagamento(saldo_inicial, 150)
+
+    assert novo_saldo == 350.00
+
+# FUNÇÃO PARA TESTAR VALOR MAIOR QUE SALDO
+def test_pagamento_nao_deve_ultrapassar_saldo(saldo_inicial):
+    with pytest.raises(ValueError):
+        aplicar_pagamento(saldo_inicial, 600)
+
+# FUNÇÃO PARA TESTAR LISTA DE COMPRAS INDEPENDENTE
+def test_lista_deve_ser_independente(lista_compras):
+    adicionar_item(lista_compras,"Chocolate", 12)
+
+    assert len(lista_compras) == 5
