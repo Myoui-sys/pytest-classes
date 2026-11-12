@@ -1,6 +1,6 @@
 import pytest
 
-from exemplo import (calcular_total_compra, calcular_troco, converter_horas_em_minutos, criar_saudacao, contar_caracteres, tem_item_na_lista, pode_entrar_no_evento, calcular_media, converter_km_em_metros, calcular_gorjeta, calcular_idade_apos_anos, calcular_tempo_viagem, converter_celsius_fahreinheit, adicionar_item)
+from exemplo import (calcular_total_compra, calcular_troco, converter_horas_em_minutos, criar_saudacao, contar_caracteres, tem_item_na_lista, pode_entrar_no_evento, calcular_media, converter_km_em_metros, calcular_gorjeta, calcular_idade_apos_anos, calcular_tempo_viagem, converter_celsius_fahreinheit, adicionar_item, aplicar_pagamento, calcular_total)
 
 # Teste da função para calcular valor total da compra
 def test_calcular_total_compra():
@@ -103,4 +103,20 @@ def test_calcular_idade_apos_anos_negativo():
     with pytest.raises(ValueError):
         calcular_idade_apos_anos(-5, 5)
 
+#FUNÇÕES UTILIZANDO FIXTURES
+@pytest.fixture
+def lista_compras():
+    return [
+        {"nome":"Arroz","preco": 25.00},
+        {"nome":"Feijão","preco": 8.50},
+        {"nome":"Leite","preco": 6.00},
+        {"nome":"Café","preco": 16.00},
+    ]
+@pytest.fixture
+def saldo_inicial():
+    return 500.00
 
+# FUNÇÕES DE TESTES COM FIXTURES
+# TESTE PARA ADICIONAR ITEM NA LISTA
+def test_adicionar_item_na_lista(lista_compra):
+    
